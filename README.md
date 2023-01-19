@@ -1,6 +1,6 @@
 ## Todo list
 
-### Student name
+### Arthur BECKER
 
 > Please write your name and surname here
 
