@@ -1,0 +1,14 @@
+.row{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}
+
+.delete{
+    margin-top: 5px;
+}

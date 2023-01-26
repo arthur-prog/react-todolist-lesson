@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 const options = ['To do', 'In progress', 'Done'];
 const TodoListBasic = () => {
