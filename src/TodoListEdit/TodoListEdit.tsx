@@ -82,8 +82,8 @@ const TodoListEdit = () => {
         setColumns(columns.filter(({value}) => value !== idToRemove));
         const thisItems = getColumnItems(idToRemove);
         const newItems: ItemInterface[] = [];
-        items.forEach(function(item){
-            if(!thisItems.includes(item)){
+        items.forEach(function (item) {
+            if (!thisItems.includes(item)) {
                 newItems.push(item);
             }
         });
@@ -95,8 +95,6 @@ const TodoListEdit = () => {
     };
 
 
-
-
     const showModalColumn = (column: ColumnInterface) => {
         setColumnNameModal(column.label);
         setSelectedColumnModal(column);
@@ -104,7 +102,7 @@ const TodoListEdit = () => {
     };
 
     const handleOkColumn = () => {
-        if(columnNameModal){
+        if (columnNameModal) {
             const columnIndex = columns.findIndex((column => column == selectedColumnModal))
             columns[columnIndex].label = columnNameModal
             setColumns(columns);
@@ -124,8 +122,12 @@ const TodoListEdit = () => {
 
 
 
-    const showModalItem = (column: ColumnInterface, item : ItemInterface) => {
-        setColumnNameModal(column.label);
+    const handleOnSelectColumnNameModalChange = (newValue: string) => {
+        setColumnNameModal(newValue);
+    };
+
+    const showModalItem = (column: ColumnInterface, item: ItemInterface) => {
+        setColumnNameModal(column.value);
         setSelectedColumnModal(column);
         setItemNameModal(item.label);
         setSelectedItemModal(item);
@@ -133,13 +135,10 @@ const TodoListEdit = () => {
     };
 
     const handleOkItem = () => {
-        if(columnNameModal && itemNameModal){
-            const columnIndex = columns.findIndex((column => column == selectedColumnModal))
-            columns[columnIndex].label = columnNameModal
-            setColumns(columns);
-
+        if (columnNameModal && itemNameModal) {
             const itemIndex = items.findIndex((item => item == selectedItemModal))
             items[itemIndex].label = itemNameModal
+            items[itemIndex].columnId = columnNameModal
             setItems(items);
 
             setIsModalItemOpen(false);
@@ -168,27 +167,31 @@ const TodoListEdit = () => {
                      handleOnClickNewItem={handleOnClickNewItem}/>
 
             <div className="todo-list-edit-columns">
-            {columns.map((column) => {
-                const columnItems = getColumnItems(column.value);
+                {columns.map((column) => {
+                    const columnItems = getColumnItems(column.value);
 
-                return (
-                    <Column
-                        column={column}
-                        key={column.value}
-                        items={columnItems}
-                        label={column.label}
-                        handleOnDeleteItem={handleOnDeleteItem}
-                        handleOnDeleteColumn={handleOnDeleteColumn}
-                        showColumnModal={showModalColumn}
-                        showItemModal={showModalItem}
-                    />
-                );
-            })}
-                <ColumnModal isModalOpen={isModalColumnOpen} handleOk={handleOkColumn} handleCancel={handleCancelColumn} handleOnColumnNameChange={handleOnColumnNameModalChange} columnName={columnNameModal}/>
-                <ItemModal isModalOpen={isModalItemOpen} handleOk={handleOkItem} handleCancel={handleCancelItem} columnName={columnNameModal} itemName={itemNameModal} handleOnColumnNameChange={handleOnColumnNameModalChange} handleOnItemNameChange={handleOnItemNameModalChange}/>
+                    return (
+                        <Column
+                            column={column}
+                            key={column.value}
+                            items={columnItems}
+                            label={column.label}
+                            handleOnDeleteItem={handleOnDeleteItem}
+                            handleOnDeleteColumn={handleOnDeleteColumn}
+                            showColumnModal={showModalColumn}
+                            showItemModal={showModalItem}
+                        />
+                    );
+                })}
+                <ColumnModal isModalOpen={isModalColumnOpen} handleOk={handleOkColumn} handleCancel={handleCancelColumn}
+                             handleOnColumnNameChange={handleOnColumnNameModalChange} columnName={columnNameModal}/>
+                <ItemModal isModalOpen={isModalItemOpen} handleOk={handleOkItem} handleCancel={handleCancelItem}
+                           columnName={columnNameModal} itemName={itemNameModal}
+                           handleOnSelectColumnNameChange={handleOnSelectColumnNameModalChange}
+                           handleOnItemNameChange={handleOnItemNameModalChange} columns={columns}/>
+            </div>
         </div>
-</div>
-)
-    ;
+    )
+        ;
 };
 export default TodoListEdit;

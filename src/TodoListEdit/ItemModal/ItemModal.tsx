@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {ItemInterface} from "../TodoListEdit";
-import {Input, Modal} from "antd";
+import {ColumnInterface, ItemInterface} from "../TodoListEdit";
+import {Input, Modal, Select} from "antd";
 
 
 export interface ItemModalInterface{
@@ -8,27 +8,29 @@ export interface ItemModalInterface{
     handleOk: () => void,
     handleCancel: () => void,
     columnName: string|undefined,
-    handleOnColumnNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleOnSelectColumnNameChange: (value: string) => void
     itemName: string|undefined,
-    handleOnItemNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleOnItemNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    columns: ColumnInterface[]
 }
 
 const ItemModal = (
-    { isModalOpen, handleOk, handleCancel, itemName, handleOnItemNameChange, columnName, handleOnColumnNameChange }: ItemModalInterface
+    { isModalOpen, handleOk, handleCancel, itemName, handleOnItemNameChange, columnName, handleOnSelectColumnNameChange, columns }: ItemModalInterface
 ) => {
     return <><Modal title="Item Edition" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <h1>Column</h1>
-        <Input
-            placeholder="Column name"
-            onChange={handleOnColumnNameChange}
-            value={columnName}
-        />
-        <h1>Item</h1>
-        <Input
-            placeholder="Item name"
-            onChange={handleOnItemNameChange}
-            value={itemName}
-        />
+        <div className="todo-list-edit-add-item">
+            <Input
+                placeholder="Item name"
+                onChange={handleOnItemNameChange}
+                value={itemName}
+            />
+            <Select
+                placeholder="Select column"
+                onChange={handleOnSelectColumnNameChange}
+                value={columnName}
+                options={columns}
+            />
+        </div>
     </Modal></>;
 };
 
