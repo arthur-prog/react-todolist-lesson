@@ -4,7 +4,9 @@ import Navigation from './Navigation';
 import TodoListBasic from './TodoListBasic';
 import TodoListEdit from './TodoListEdit';
 import TodoListWithDesign from './TodoListWithDesign';
-import TodoListRedux from './TodoListRedux';
+import TodoListReduxWrapper from './TodoListRedux/TodoListWrapper';
+import Example from "./Example/Example";
+import Example2 from "./Example2/Example2";
 
 const App = () => (
     <div className="app">
@@ -13,7 +15,9 @@ const App = () => (
             <Route path="/todo-list-basic" element={<TodoListBasic />} />
             <Route path="/todo-list-with-design" element={<TodoListWithDesign />} />
             <Route path="/todo-list-edit" element={<TodoListEdit />} />
-            <Route path="/todo-list-redux" element={<TodoListRedux />} />
+            <Route path="/todo-list-redux" element={<TodoListReduxWrapper />} />
+            <Route path="/example" element={<Example />} />
+            <Route path="/example2" element={<Example2 />} />
             <Route path="*" element={<Navigate to="/todo-list-basic" />} />
         </Routes>
     </div>
